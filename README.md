@@ -10,6 +10,7 @@ An AI-powered conversational assistant inspired by modern large language models,
     -dotenv
 
  (2) Model use - OpenAI - GPT-4o mini
+    
     (A) Option 1:-
      - first use npm i openai , to install
      - and also copy some basic setup code from npm website 
