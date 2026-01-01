@@ -3,18 +3,19 @@ An AI-powered conversational assistant inspired by modern large language models,
 
  All Step by Step process of Devlopment
 
- (1) Install Dependency in Backend
+(1) Install Dependency in Backend
     - express
     - nodemon
     - cors
     -dotenv
 
- (2) Model use - OpenAI - GPT-4o mini   
+(2) Model use - OpenAI - GPT-4o mini   
+                               
     (A)Option 1
      - first use npm i openai , to install
      - and also copy some basic setup code from npm website 
      - save API key in env file, that call in server2.js 
-      
+     
     (B)Using OpenAI with API endpoint
      - install express and connect with app, and port binding
      - check app.listen work 
