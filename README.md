@@ -20,17 +20,18 @@ An AI-powered conversational assistant inspired by modern large language models,
      - check app.listen work 
      - use OpenAi Chat Completions  (https://platform.openai.com/docs/api-reference/chat)
 
-     - step :
-        - Endpoint: POST /test
-        - Purpose: Sends a message to OpenAI GPT-4o-mini model and returns 
-        - response.
-        - Key steps:
-            - Prepare fetch options (method, headers, body).
-            - Use await fetch() to call OpenAI API.
-            - Convert response to JSON.
-            - Log and send response back to client.
-            - Handle errors with try/catch.
 
 (3) Now we Create Models for define Schema
    - install mongoos
    - Thread.js for MessageSchema & ThreadSchema 
+
+(4)Now We Create Util folder for core logic
+   - Create getOpenAiAPIResponse function in openai.js, that conect with OpenAi send user message and return response of OpenAi.
+
+(5) we create new Database in Atlas  and connect with our project in server.js in function connectBD.
+
+(6) Now we create all Routes in chat.js
+  - GET /thread.  for frontend , to show all histroy of all chat 
+  - GET /thread/:threadId  any specific Chat's all messages
+  - DELETE /thread/:threadId yo delete any specific Chat
+  - POST /chat.      for send new messages
