@@ -10,7 +10,6 @@ An AI-powered conversational assistant inspired by modern large language models,
     -dotenv
 
  (2) Model use - OpenAI - GPT-4o mini
-    
     (A) Option 1:-
      - first use npm i openai , to install
      - and also copy some basic setup code from npm website 
@@ -31,3 +30,7 @@ An AI-powered conversational assistant inspired by modern large language models,
             - Convert response to JSON.
             - Log and send response back to client.
             - Handle errors with try/catch.
+
+(3) Now we Create Models for define Schema
+   - install mongoos
+   - Thread.js for MessageSchema & ThreadSchema 
