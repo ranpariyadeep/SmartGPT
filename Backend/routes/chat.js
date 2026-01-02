@@ -1,5 +1,6 @@
 import express from "express";
 import Threads from "../models/Thread.js";
+import getOpenAiAPIResponse from "../utils/openai.js";
 
 const router = express.Router();
 
@@ -44,7 +45,6 @@ router.get("/thread/:threadId", async (req, res) => {
     }
 
     res.json(thread.messages);
-
   } catch (error) {
     console.log("Failed to fetch specific Chat :", error);
     res.status(500).json(error, "Failed to fetch specific Chat");
@@ -61,11 +61,52 @@ router.delete("/thread/:threadId", async (req, res) => {
       res.status(404).json({ error: "Chat could not be deleted" });
     }
 
-    res.status(200).json({success: "Chat deleted successfully"});
-
+    res.status(200).json({ success: "Chat deleted successfully" });
   } catch (error) {
     console.log("Failed to delete specific Chat :", error);
     res.status(500).json(error, "Failed to delete specific Chat");
+  }
+});
+
+//Post route for chat
+// user message  send & Openai response get
+
+router.post("/chat", async (req, res) => {
+  const { threadId, message } = req.body;
+
+  // atleast any one from both we get from user.
+  // in new Chat we get message and in old chat threadId and also message
+  if (!threadId || !message) {
+    res.status(400).json({ error: "missing requried fields" });
+  }
+
+  try {
+    let thread = await Threads.findOne({ threadId });
+
+    //in new chat we need to cretae threadId & othet details
+    if (!thread) {
+      // create a new thread in DB
+      thread = new Threads({
+        threadId,
+        title: message,
+        messages: [{ role: "user", content: message }],
+      });
+    } else {
+      // for old chat exist than need only new message store in DB
+      thread.messages.push({ role: "user", content: message });
+    }
+    //get reply from OpenAi
+    const assistantReply = await getOpenAiAPIResponse(message);
+    // save OpenAI reply in Thread
+    thread.messages.push({ role: "assistant", content: assistantReply });
+    thread.updatedAt = new Date();
+    await thread.save();
+
+    // for frontend
+    res.json({ reply: assistantReply });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "something went wrong" });
   }
 });
 

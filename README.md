@@ -35,4 +35,11 @@ An AI-powered conversational assistant inspired by modern large language models,
   - GET /thread.  for frontend , to show all histroy of all chat 
   - GET /thread/:threadId  any specific Chat's all messages
   - DELETE /thread/:threadId yo delete any specific Chat
-  - POST /chat.      for send new messages
+  - POST /chat.   for send new messages
+
+(7) In detail of POST /chat route in chat.js 
+  - Validate threadId, message
+  - 2 Case for threadId , if chat exist than threadId also exist, for new Chat we cretae threadId
+  - we save message in Thread and than get OpenAi response, that we store in DB (as assistant)
+
+
